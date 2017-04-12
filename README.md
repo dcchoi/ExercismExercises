@@ -1,0 +1,1 @@
+My current implementations of the http://exercism.io/ exercises in Scala. 
