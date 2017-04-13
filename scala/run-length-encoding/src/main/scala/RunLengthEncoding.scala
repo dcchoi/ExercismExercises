@@ -8,7 +8,8 @@ object RunLengthEncoding {
       str.toList match {
         case Nil => result
         case head :: tail => {
-          auxEncode(str.span(_ == str.head)._2, result + (str.span(_ == str.head)._1.length match {
+          val spannedStr = str.span(_ == str.head)
+          auxEncode(spannedStr._2, result + (spannedStr._1.length match {
             case 1 => ""
             case x => x.toString
           }) + str.head )
@@ -26,10 +27,11 @@ object RunLengthEncoding {
       str.toList match {
         case Nil => result
         case head :: tail => {
-          auxDecode(str.span(_.isDigit)._2.tail, result + (str.span(_.isDigit)._1 match {
-            case "" => str.span(_.isDigit)._2.head.toString()
-            case x => str.span(_.isDigit)._2.head.toString() * x.toInt
-          }))
+          val spannedStr =str.span(_.isDigit)
+          auxDecode(spannedStr._2.tail, result + (spannedStr._2.head.toString() * (spannedStr._1 match {
+            case "" => 1
+            case x => x.toInt
+          })))
         }
       }
     }
